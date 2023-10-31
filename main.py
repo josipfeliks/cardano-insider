@@ -9,4 +9,13 @@ api = BlockFrostApi(
     base_url=ApiUrls.mainnet.value,
 )
 
-print(os.environ["BLOCKFROST_PROJECT_ID"])
+try:
+    address = "addr1qxvwaujuw3vky80h0j73xwh466q63zx6t67efvvz4npn6py52y9ckt97pxqvvp0d7an8hdtc2w3nvpxswfvd44q9cusqklxjqt"
+    addr = api.address(address)
+
+    for amount in addr.amount:
+        if (amount.unit == "lovelace"):
+            print(f'ADA balance on {address}: {int(amount.quantity) / 1000000} ADA')
+
+except ApiError as e:
+    print(e)
